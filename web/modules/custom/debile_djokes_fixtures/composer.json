@@ -1,0 +1,15 @@
+{
+  "name": "debile_djokes/debile_djokes_fixtures",
+  "description": "Debile Djokes fixtures",
+  "type": "drupal-custom-module",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Mikkel Ricky",
+      "email": "mikkel@mikkelricky.dk"
+    }
+  ],
+  "require": {
+    "drupal/content_fixtures": "^2.0"
+  }
+}

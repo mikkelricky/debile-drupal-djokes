@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "50118b3b6383683badf46f61f44fa2d5",
+    "content-hash": "1f35df6ac7623dba178aeabfbafabf6b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7075,6 +7075,32 @@
             "time": "2020-12-07T18:04:37+00:00"
         },
         {
+            "name": "debile_djokes/debile_djokes_fixtures",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "web/modules/custom/debile_djokes_fixtures",
+                "reference": "c644c26e28f61d54b0acc023f19738d0e94f6d6a"
+            },
+            "require": {
+                "drupal/content_fixtures": "^2.0"
+            },
+            "type": "drupal-custom-module",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Mikkel Ricky",
+                    "email": "mikkel@mikkelricky.dk"
+                }
+            ],
+            "description": "Debile Djokes fixtures",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "doctrine/instantiator",
             "version": "1.4.0",
             "source": {
@@ -7185,6 +7211,62 @@
                 "source": "https://www.drupal.org/project/coder"
             },
             "time": "2020-12-06T09:34:55+00:00"
+        },
+        {
+            "name": "drupal/content_fixtures",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/content_fixtures.git",
+                "reference": "8.x-2.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/content_fixtures-8.x-2.0.zip",
+                "reference": "8.x-2.0",
+                "shasum": "ca871ca8baaeb15ae8a591664aa2adc2594334b9"
+            },
+            "require": {
+                "drupal/core": "^8.7.7 || ^9",
+                "drush/drush": "^9 || ^10",
+                "php": ">=7.0.0"
+            },
+            "suggest": {
+                "fzaninotto/faker": "Fake data generator. Generates multiple types of fake data.",
+                "joshtronic/php-loremipsum": "Lorem ipsum generator for dummy content."
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.0",
+                    "datestamp": "1593032018",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9 || ^10"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Łukasz Zaroda",
+                    "homepage": "https://www.drupal.org/user/1890152",
+                    "email": "luken@luken-tech.pl"
+                }
+            ],
+            "description": "Module privides an API for creating generators of dummy content in a way similar to the 'DoctrineFixturesBundle'.",
+            "homepage": "https://www.drupal.org/project/content_fixtures",
+            "support": {
+                "source": "https://git.drupalcode.org/project/content_fixtures"
+            }
         },
         {
             "name": "drupal/core-dev",
@@ -10002,7 +10084,7 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,

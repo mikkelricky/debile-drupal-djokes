@@ -9,6 +9,9 @@ dependencies:
 third_party_settings:
   jsonapi_defaults:
     page_limit: 500
+    default_sorting:
+      'sort:index#path': index
+      'sort:index#direction': ASC
 id: node--djoke
 disabled: false
 path: djoke

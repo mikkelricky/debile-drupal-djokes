@@ -1,0 +1,12 @@
+services:
+  debile_djokes_fixtures.collection_fixture:
+    class: Drupal\debile_djokes_fixtures\Fixture\CollectionFixture
+    arguments:
+      - '@file_system'
+    tags:
+      - { name: content_fixture }
+
+  debile_djokes_fixtures.djoke_fixture:
+    class: Drupal\debile_djokes_fixtures\Fixture\DjokeFixture
+    tags:
+      - { name: content_fixture }
