@@ -19,10 +19,18 @@ class CollectionFixture extends AbstractFixture implements FixtureGroupInterface
   public function load() {
     $collection = Node::create([
       'type' => 'collection',
-      'title' => 'The first collection',
+      'title' => '500 Debile Djokes',
       'status' => Node::PUBLISHED,
     ]);
-    $this->setReference('collection:the-first-collection', $collection);
+    $this->setReference('collection:500-debile-djokes', $collection);
+    $collection->save();
+
+    $collection = Node::create([
+      'type' => 'collection',
+      'title' => '500 nye Debile Djokes',
+      'status' => Node::PUBLISHED,
+    ]);
+    $this->setReference('collection:500-nye-debile-djokes', $collection);
     $collection->save();
   }
 

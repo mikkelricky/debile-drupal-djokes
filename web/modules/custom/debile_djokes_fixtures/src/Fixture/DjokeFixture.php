@@ -20,20 +20,20 @@ class DjokeFixture extends AbstractFixture implements DependentFixtureInterface,
   public function load() {
     $djoke = Node::create([
       'type' => 'djoke',
-      'collection' => [['target_id' => $this->getReference('collection:the-first-collection')->id()]],
+      'collection' => [['target_id' => $this->getReference('collection:500-debile-djokes')->id()]],
       'index' => 1,
-      'djoke' => 'The first djoke',
-      'punchline' => 'The first punchline',
+      'djoke' => 'Hvad kan man kalde et musikinstrument, som kun kan spilles på kl 12.00?',
+      'punchline' => 'En middagslur',
       'status' => Node::PUBLISHED,
     ]);
     $djoke->save();
 
     $djoke = Node::create([
       'type' => 'djoke',
-      'collection' => [['target_id' => $this->getReference('collection:the-first-collection')->id()]],
+      'collection' => [['target_id' => $this->getReference('collection:500-debile-djokes')->id()]],
       'index' => 2,
-      'djoke' => 'Another djoke',
-      'punchline' => 'The second punchline',
+      'djoke' => 'Hvad kan man kalde et køretøj med hjerne?',
+      'punchline' => 'En tank-bil',
       'status' => Node::PUBLISHED,
     ]);
     $djoke->save();
