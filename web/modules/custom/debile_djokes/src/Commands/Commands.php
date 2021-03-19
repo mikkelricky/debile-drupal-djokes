@@ -48,21 +48,25 @@ class Commands extends DrushCommands {
    * @param array $options
    *   The options.
    *
-   * @option collection-id
+   * @option int collection-id
    *   The collection id.
+   * @option bool update
+   *   Update djokes in collection.
    *
    * @command debile_djokes:import:djokes
    * @usage debile_djokes:import:djokes 'https://docs.google.com/spreadsheets/d/…/export?format=csv&gid=0' --collection-id=1
+   * @usage debile_djokes:import:djokes 'https://docs.google.com/spreadsheets/d/…/export?format=csv&gid=0' --collection-id=1 --update
    */
   public function importDjokes(
     string $url,
-    array $options = ['collection-id' => NULL]
+    array $options = ['collection-id' => NULL, 'update' => FALSE]
   ) {
     if (!isset($options['collection-id'])) {
       throw new \RuntimeException('Missing option: collection-id');
     }
 
     $collectionId = $options['collection-id'];
+    $update = $options['update'];
 
     /** @var \Drupal\node\Entity\Node $collection */
     $collection = Node::load($collectionId);
@@ -72,18 +76,24 @@ class Commands extends DrushCommands {
     }
 
     // Check if collection contains djokes.
-    $djokes = $this->entityTypeManager->getStorage('node')
+    $djokeIds = $this->entityTypeManager->getStorage('node')
       ->getQuery()
       ->condition('type', 'djoke')
       ->condition('collection.target_id', $collection->id())
       ->execute();
 
-    if (!empty($djokes)) {
+    if (!$update && !empty($djokeIds)) {
       throw new \RuntimeException(sprintf('Collection %s (%d) is not empty',
         $collection->getTitle(), $collection->id()));
     }
 
+    $djokes = [];
+    foreach (Node::loadMultiple($djokeIds) as $djoke) {
+      $djokes[$djoke->index->velue] = $djoke;
+    }
+
     try {
+      $this->writeln(sprintf('Loading data from %s', $url));
       $response = $this->client->request('GET', $url);
       $data = (string) $response->getBody();
     }
@@ -100,16 +110,23 @@ class Commands extends DrushCommands {
       }
       else {
         $data = array_combine($header, $row);
-        $djoke = Node::create([
-          'type' => 'djoke',
-          'collection' => [['target_id' => $collection->id()]],
-          'status' => Node::PUBLISHED,
-          'index' => $data['index'] ?? $data['id'],
-          'djoke' => $data['djoke'] ?? $data['text'],
-          'punchline' => $data['punchline'],
-        ]);
+        $index = $data['index'] ?? $data['id'];
+        /** @var \Drupal\node\Entity\Node $djoke */
+        $djoke = $djokes[$index] ?? NULL;
+        if (NULL === $djoke) {
+          $djoke = Node::create([
+            'type' => 'djoke',
+          ]);
+        }
+        $djoke
+          ->set('collection', [['target_id' => $collection->id()]])
+          ->set('status', Node::PUBLISHED)
+          ->set('index', $data['index'] ?? $data['id'])
+          ->set('djoke', $data['djoke'] ?? $data['text'])
+          ->set('punchline', $data['punchline']);
         $djoke->save();
-        $this->writeln($djoke->index->value);
+
+        $this->writeln(sprintf('% 4d: %s', $djoke->index->value, $djoke->getTitle()));
       }
     }
   }
