@@ -1,0 +1,7 @@
+services:
+  Drupal\debile_djokes\Commands\Commands:
+    arguments:
+      - '@entity_type.manager'
+      - '@http_client'
+    tags:
+      - { name: drush.command }
