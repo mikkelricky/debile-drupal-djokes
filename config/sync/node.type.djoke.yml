@@ -1,0 +1,11 @@
+uuid: 305e690f-1b4c-4cd8-9c24-bfd03a676f02
+langcode: en
+status: true
+dependencies: {  }
+name: Djoke
+type: djoke
+description: 'This is a djoke.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

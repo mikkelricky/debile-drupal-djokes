@@ -1,0 +1,19 @@
+uuid: 2cb07649-831c-4d00-90cd-704e917de8dc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.punchline
+    - node.type.djoke
+id: node.djoke.punchline
+field_name: punchline
+entity_type: node
+bundle: djoke
+label: Punchline
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

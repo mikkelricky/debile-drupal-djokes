@@ -1,0 +1,11 @@
+uuid: d756a42d-8642-45fe-aa3f-69340b5dd3c1
+langcode: en
+status: true
+dependencies: {  }
+name: Collection
+type: collection
+description: 'A collection of djokes.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

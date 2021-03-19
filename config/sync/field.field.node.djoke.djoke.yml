@@ -1,0 +1,19 @@
+uuid: 1113a9ab-e69a-4e56-bafa-2c268f05d2a7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.djoke
+    - node.type.djoke
+id: node.djoke.djoke
+field_name: djoke
+entity_type: node
+bundle: djoke
+label: Djoke
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

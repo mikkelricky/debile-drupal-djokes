@@ -1,0 +1,28 @@
+uuid: 8cfba6c1-4d70-4951-99ef-3904fa48df49
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.djoke.collection
+    - field.field.node.djoke.djoke
+    - field.field.node.djoke.index
+    - field.field.node.djoke.punchline
+    - node.type.djoke
+  module:
+    - user
+id: node.djoke.teaser
+targetEntityType: node
+bundle: djoke
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  collection: true
+  djoke: true
+  index: true
+  punchline: true

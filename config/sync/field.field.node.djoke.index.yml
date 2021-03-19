@@ -1,0 +1,23 @@
+uuid: 2ce3524a-701a-4cfc-ba5f-175545300fc2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.index
+    - node.type.djoke
+id: node.djoke.index
+field_name: index
+entity_type: node
+bundle: djoke
+label: Index
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

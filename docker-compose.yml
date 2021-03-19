@@ -1,0 +1,21 @@
+version: "3.4"
+
+services:
+  db:
+    image: mysql/mysql-server:5.7
+    ports:
+      - '3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=db
+      - MYSQL_PASSWORD=db
+      - MYSQL_DATABASE=db
+      #- ENCRYPT=1 # Uncomment to enable database encryptionn.
+    labels:
+      com.symfony.server.service-prefix: 'DATABASE'
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025"
+      - "8025"

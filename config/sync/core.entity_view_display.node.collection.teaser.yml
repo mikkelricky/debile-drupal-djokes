@@ -1,0 +1,36 @@
+uuid: cfee23d4-30b5-4283-bd6b-3ad1888ebd32
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.collection.body
+    - field.field.node.collection.cover_image
+    - field.field.node.collection.icon
+    - field.field.node.collection.logo
+    - node.type.collection
+  module:
+    - text
+    - user
+id: node.collection.teaser
+targetEntityType: node
+bundle: collection
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  cover_image: true
+  icon: true
+  logo: true

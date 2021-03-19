@@ -1,0 +1,9 @@
+name: Debile Djokes
+type: theme
+description: 'Debile Djokes'
+core_version_requirement: ^8 || ^9
+# libraries:
+#   - debile-djokes/global-styling
+base theme: false
+regions:
+  content: Content

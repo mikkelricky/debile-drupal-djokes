@@ -1,0 +1,54 @@
+uuid: 822e3ff1-a00d-412f-94e0-043d9858e82b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.djoke.collection
+    - field.field.node.djoke.djoke
+    - field.field.node.djoke.index
+    - field.field.node.djoke.punchline
+    - node.type.djoke
+  module:
+    - user
+id: node.djoke.default
+targetEntityType: node
+bundle: djoke
+mode: default
+content:
+  collection:
+    weight: 102
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  djoke:
+    weight: 104
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  index:
+    weight: 103
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  punchline:
+    weight: 105
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+hidden: {  }
