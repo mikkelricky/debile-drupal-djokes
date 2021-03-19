@@ -2,8 +2,8 @@ name: Debile Djokes
 type: theme
 description: 'Debile Djokes'
 core_version_requirement: ^8 || ^9
-# libraries:
-#   - debile-djokes/global-styling
 base theme: false
+libraries:
+  - debile_djokes_theme/app
 regions:
   content: Content

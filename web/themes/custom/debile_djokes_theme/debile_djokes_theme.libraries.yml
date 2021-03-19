@@ -1,0 +1,7 @@
+app:
+  version: 1.x
+  css:
+    theme:
+      build/app.css: {preprocess: false}
+  js:
+    build/app.js: {preprocess: false}
