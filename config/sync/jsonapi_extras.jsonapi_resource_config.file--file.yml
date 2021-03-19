@@ -4,6 +4,10 @@ status: true
 dependencies:
   module:
     - file
+    - jsonapi_defaults
+third_party_settings:
+  jsonapi_defaults:
+    page_limit: 50
 id: file--file
 disabled: false
 path: file

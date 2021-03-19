@@ -4,6 +4,15 @@ status: true
 dependencies:
   config:
     - node.type.collection
+  module:
+    - jsonapi_defaults
+third_party_settings:
+  jsonapi_defaults:
+    default_include:
+      - cover_image
+      - logo
+      - icon
+    page_limit: 50
 id: node--collection
 disabled: false
 path: collection
