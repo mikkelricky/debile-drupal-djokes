@@ -1,0 +1,6 @@
+{% set options = {
+  collection_id: node.uuid.value,
+  djokes_data_url: path('jsonapi.djoke.collection', {filter: {'collection.id': node.uuid.value}, page: {limit: 5}}),
+  total_number_of_items: 500,
+  } %}
+<div id="app" data-options="{{ options|json_encode }}">{{ head_title|safe_join(' | ') }}</div>

@@ -14,4 +14,11 @@ EOF
   exit 1
 fi
 
+if ! yarn --cwd web/themes/custom/debile_djokes_theme/ coding-standards-check; then
+  cat >&2 << EOF
+Please fix any coding standards issues before commit'ing!
+EOF
+  exit 1
+fi
+
 exit 0
