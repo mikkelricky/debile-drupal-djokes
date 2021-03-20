@@ -12,6 +12,8 @@ third_party_settings:
     default_sorting:
       'sort:index#path': index
       'sort:index#direction': ASC
+    default_include:
+      - collection
 id: node--djoke
 disabled: false
 path: djoke
