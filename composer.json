@@ -21,6 +21,7 @@
     },
     "require": {
         "composer/installers": "^1.9",
+        "drupal/coffee": "^1.2",
         "drupal/core-composer-scaffold": "^9.1",
         "drupal/core-project-message": "^9.1",
         "drupal/core-recommended": "^9.1",
