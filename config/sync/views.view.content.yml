@@ -8,6 +8,7 @@ dependencies:
     - entity_reference_exposed_filters
     - node
     - user
+    - views_autosubmit
 _core:
   default_config_hash: P7F4DFe8BL31DRVqsvS-ix9KZZqvvaPjZ7zEvGo9yNM
 id: content
@@ -29,7 +30,7 @@ display:
       query:
         type: views_query
       exposed_form:
-        type: basic
+        type: autosubmit
         options:
           submit_button: Filter
           reset_button: true
@@ -38,6 +39,7 @@ display:
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
+          autosubmit_hide: true
       pager:
         type: full
         options:
