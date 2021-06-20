@@ -1,6 +1,8 @@
 logo:
-  use_default: true
+  use_default: false
+  path: themes/custom/debile_djokes_theme/images/logo.jpg
 brand_image:
-  use_default: true
+  use_default: false
+  path: themes/custom/debile_djokes_theme/images/500-debile-djokes.jpg
 _core:
   default_config_hash: OhypfKr4_Eo8XwXg3Sios05lN-LjxOhSdSOSkEN9Ndo
