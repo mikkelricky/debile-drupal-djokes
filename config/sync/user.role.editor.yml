@@ -1,0 +1,17 @@
+uuid: dcd26380-2873-40dd-b5ff-880ca465bfb0
+langcode: en
+status: true
+dependencies: {  }
+id: editor
+label: Editor
+weight: 2
+is_admin: null
+permissions:
+  - 'access content overview'
+  - 'access toolbar'
+  - 'create collection content'
+  - 'create djoke content'
+  - 'edit any collection content'
+  - 'edit any djoke content'
+  - 'view own unpublished content'
+  - 'view the administration theme'
