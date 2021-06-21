@@ -3,6 +3,16 @@ type: theme
 description: 'Debile Djokes'
 core_version_requirement: ^8 || ^9
 base theme: false
+libraries-override:
+  system/base: false
+  coffee/drupal.coffee: false
+  gin/gin: false
+  gin/gin_init: false
+  gin/gin_toolbar: false
+  gin/gin_accent: false
+  gin/gin_dialog: false
+  claro/global-styling: false
+  claro/claro.drupal.dialog: false
 libraries:
   - debile_djokes_theme/app
 regions:
