@@ -1,1 +1,13 @@
 @import "~bootstrap/scss/bootstrap";
+
+#app {
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+
+  & > div {
+    height: 100%;
+  }
+}

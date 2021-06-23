@@ -9,6 +9,7 @@
         "lunr": "^2.3.9",
         "lunr-languages": "^1.4.0",
         "react-bootstrap": "^2.0.0-beta",
+        "react-swipeable": "^6.1.2",
         "regenerator-runtime": "^0.13.2",
         "sass": "^1.32.8",
         "sass-loader": "^11.0.0",

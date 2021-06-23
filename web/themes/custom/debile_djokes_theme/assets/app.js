@@ -3,7 +3,17 @@ import './styles/app.scss'
 
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
-import { Badge, Button, Card, Col, Form, ProgressBar, Row } from 'react-bootstrap'
+import {
+  Alert,
+  Badge,
+  Button,
+  Card,
+  Col,
+  Form,
+  ProgressBar,
+  Row
+} from 'react-bootstrap'
+import { useSwipeable } from 'react-swipeable'
 
 const lunr = require('lunr')
 require('lunr-languages/lunr.stemmer.support')(lunr)
@@ -100,16 +110,26 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
   const SearchResult = ({ result }) => {
     const item = indexedItems[result.ref]
 
+    const selectItem = (item) => {
+      setSearchQuery('')
+      setIndex(item.attributes.index - 1)
+    }
+
     // <div key={item.ref}>{item.attributes.index} {JSON.stringify(indexedItems[item.ref])}</div>)
     return (
-      <div>
+      <div onClick={() => selectItem(item)}>
         {item.attributes.index}: {item.attributes.djoke} {item.attributes.punchline}
       </div>
     )
   }
 
+  const handlers = useSwipeable({
+    onSwipedLeft: next,
+    onSwipedRight: prev
+  })
+
   if (error) {
-    return <div>Error: {error.message}</div>
+    return <Alert variant='danger'>Error: {error.message}</Alert>
   } else if (!isLoaded) {
     return (
       <div>
@@ -119,7 +139,7 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
     )
   } else {
     return (
-      <>
+      <div className='d-flex flex-column' {...handlers}>
 
         <Row className='djoke-navigation'>
           <Col>
@@ -133,28 +153,28 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
           </Col>
         </Row>
 
-        {items[index] &&
-          <Card>
-            <Card.Body>
-              <Badge bg='primary' className='m-of-n'>
-                {index + 1}/{items.length}
-              </Badge>
-              <h5 className='card-title djoke'>{items[index].attributes.djoke}</h5>
-              <p className='card-text text-end punchline'>{items[index].attributes.punchline}</p>
-            </Card.Body>
-          </Card>}
+        <div className='djoke-content flex-grow-1'>
+          {items[index] &&
+            <Card>
+              <Card.Body>
+                <Badge bg='primary' className='m-of-n'>
+                  {index + 1}/{items.length}
+                </Badge>
+                <h5 className='card-title djoke'>{items[index].attributes.djoke}</h5>
+                <p className='card-text text-end punchline'>{items[index].attributes.punchline}</p>
+              </Card.Body>
+            </Card>}
 
-        {searchResult && searchResult.length > 0 && searchResult.map(result => <SearchResult key={result.ref} result={result} />)}
-      </>
+          {searchResult && searchResult.length > 0 && searchResult.map(result => <SearchResult key={result.ref} result={result} />)}
+        </div>
+      </div>
     )
   }
 }
 
 const App = (options) => {
   return (
-    <div className='container-fluid'>
-      <Djokes {...options} />
-    </div>
+    <Djokes {...options} />
   )
 }
 
