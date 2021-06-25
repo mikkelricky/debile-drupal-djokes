@@ -1,4 +1,7 @@
 {% set options = {
+  collection: {
+    title: node.label
+  },
   collection_id: node.uuid.value,
   djokes_data_url: path('jsonapi.djoke.collection', {filter: {'collection.id': node.uuid.value}, page: {limit: 100}}),
   total_number_of_items: 500,

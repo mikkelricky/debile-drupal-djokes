@@ -9,11 +9,14 @@ import {
   Button,
   Card,
   Col,
-  Form,
   ProgressBar,
   Row
 } from 'react-bootstrap'
 import { useSwipeable } from 'react-swipeable'
+import Settings from './Settings'
+import useLocalStorage from './lib/useLocalStorage'
+
+require('bootstrap')
 
 const lunr = require('lunr')
 require('lunr-languages/lunr.stemmer.support')(lunr)
@@ -22,7 +25,7 @@ require('lunr-languages/lunr.da')(lunr)
 const el = document.getElementById('app')
 const options = JSON.parse(el.dataset.options || '{}')
 
-const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOfItems }) => {
+const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOfItems, collection = { title: 'Debile Djokes' } }) => {
   const [error, setError] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [items, setItems] = useState([])
@@ -32,8 +35,11 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
   const [searchIndex, setSearchIndex] = useState(null)
   const [searchResult, setSearchResult] = useState([])
 
+  const [showSettings, setShowSettings] = useState(false)
+  const [showPunchline, setShowPunchline] = useState(false)
+  const [alwaysShowPunchline, setAlwaysShowPunchline] = useLocalStorage('debile_djokes.alwaysShowPunchline', false)
+
   const fetchItems = (url, currentItems = []) => {
-    console.log(url, currentItems.length)
     fetch(url)
       .then(res => res.json())
       .then(
@@ -74,7 +80,6 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
   }, [index])
 
   useEffect(() => {
-    console.log('search', searchQuery, searchIndex)
     if (searchIndex !== null) {
       setSearchResult(searchQuery ? searchIndex.search(searchQuery + '*') : [])
     }
@@ -99,12 +104,23 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
     }
   }, [items])
 
+  const navigate = (offset) => {
+    let newIndex = index + offset
+    if (newIndex < 0) {
+      newIndex = 0
+    } else if (newIndex >= items.length) {
+      newIndex = items.length - 1
+    }
+    setIndex(newIndex)
+    setShowPunchline(false)
+  }
+
   const prev = () => {
-    setIndex(index - 1 < 0 ? items.length - 1 : index - 1)
+    navigate(-1)
   }
 
   const next = () => {
-    setIndex(index + 1 < items.length ? index + 1 : 0)
+    navigate(1)
   }
 
   const SearchResult = ({ result }) => {
@@ -134,24 +150,26 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
     return (
       <div>
         <ProgressBar animated now={100 * items.length / totalNumberOfItems} />
-        Loading djokes …
+        Loading {collection.title} …
       </div>
     )
   } else {
     return (
       <div className='d-flex flex-column' {...handlers}>
 
-        <Row className='djoke-navigation'>
-          <Col>
-            <Button onClick={prev} disabled={index === 0}>Previous djoke</Button>
-          </Col>
-          <Col className='text-center'>
-            <Form.Control type='search' placeholder='Search' value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} />
-          </Col>
-          <Col className='text-right'>
-            <Button onClick={next} disabled={items.length - 1 === index}>Next djoke</Button>
-          </Col>
-        </Row>
+        <div className='djoke-navigation'>
+          <Row>
+            <Col>
+              <Button onClick={prev} disabled={index === 0}>Previous djoke</Button>
+            </Col>
+            {/* <Col className='text-center'> */}
+            {/*   <Form.Control type='search' placeholder='Search' value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} /> */}
+            {/* </Col> */}
+            <Col className='text-end'>
+              <Button onClick={next} disabled={items.length - 1 === index}>Next djoke</Button>
+            </Col>
+          </Row>
+        </div>
 
         <div className='djoke-content flex-grow-1'>
           {items[index] &&
@@ -161,12 +179,33 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
                   {index + 1}/{items.length}
                 </Badge>
                 <h5 className='card-title djoke'>{items[index].attributes.djoke}</h5>
-                <p className='card-text text-end punchline'>{items[index].attributes.punchline}</p>
+                <p className='card-text text-end'>
+                  {showPunchline || alwaysShowPunchline
+                    ? <span className='punchline'>{items[index].attributes.punchline}</span>
+                    : <span onClick={() => setShowPunchline(true)}>Show punchline</span>}
+                </p>
               </Card.Body>
             </Card>}
 
           {searchResult && searchResult.length > 0 && searchResult.map(result => <SearchResult key={result.ref} result={result} />)}
+
+          {showSettings && <Settings closeSettings={() => setShowSettings(false)} {...{ alwaysShowPunchline, setAlwaysShowPunchline }} />}
         </div>
+
+        <nav className='navbar fixed-bottom navbar-expand navbar-dark bg-dark justify-content-between'>
+          <div className='container-fluid'>
+            <a className='navbar-brand'>{collection && collection.title ? collection?.title : 'Debile djokes'}</a>
+            <ul className='navbar-nav'>
+              {/* <li className="nav-item"> */}
+              {/*  <a className="nav-link" href="#">Search</a> */}
+              {/* </li> */}
+              <li className='nav-item'>
+                <a className='nav-link' role='button' onClick={() => setShowSettings(true)}>Settings</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
       </div>
     )
   }
