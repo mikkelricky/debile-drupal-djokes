@@ -52,7 +52,7 @@ class DjokeFixture extends AbstractFixture implements DependentFixtureInterface,
    * {@inheritdoc}
    */
   public function getGroups() {
-    return ['debile_djokes'];
+    return ['debile-djokes', 'djoke'];
   }
 
 }
