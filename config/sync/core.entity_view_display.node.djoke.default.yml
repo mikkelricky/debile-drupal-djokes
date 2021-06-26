@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.djoke.collection
     - field.field.node.djoke.djoke
     - field.field.node.djoke.index
+    - field.field.node.djoke.license
     - field.field.node.djoke.punchline
     - node.type.djoke
   module:
@@ -16,7 +17,7 @@ bundle: djoke
 mode: default
 content:
   collection:
-    weight: 102
+    weight: 1
     label: above
     settings:
       link: true
@@ -24,14 +25,14 @@ content:
     type: entity_reference_label
     region: content
   djoke:
-    weight: 104
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   index:
-    weight: 103
+    weight: 2
     label: above
     settings:
       thousand_separator: ''
@@ -40,15 +41,16 @@ content:
     type: number_integer
     region: content
   links:
-    weight: 100
+    weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
   punchline:
-    weight: 105
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
-hidden: {  }
+hidden:
+  license: true

@@ -1,0 +1,29 @@
+uuid: 5f4dc0e5-195c-47b8-a4ae-3dfd789305a5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.license
+    - node.type.djoke
+    - taxonomy.vocabulary.license
+id: node.djoke.license
+field_name: license
+entity_type: node
+bundle: djoke
+label: License
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      license: license
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

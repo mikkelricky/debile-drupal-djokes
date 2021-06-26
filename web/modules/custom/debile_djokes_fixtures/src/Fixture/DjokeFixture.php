@@ -37,6 +37,32 @@ class DjokeFixture extends AbstractFixture implements DependentFixtureInterface,
       'status' => Node::PUBLISHED,
     ]);
     $djoke->save();
+
+    $djoke = Node::create([
+      'type' => 'djoke',
+      'collection' => [['target_id' => $this->getReference('collection:500-debile-djokes')->id()]],
+      'index' => 3,
+      'djoke' => 'Djoke med licens (500)',
+      'punchline' => 'Hep!',
+      'status' => Node::PUBLISHED,
+      'license' => [
+        $this->getReference('license:500-debile-djokes')->id(),
+      ],
+    ]);
+    $djoke->save();
+
+    $djoke = Node::create([
+      'type' => 'djoke',
+      'collection' => [['target_id' => $this->getReference('collection:500-nye-debile-djokes')->id()]],
+      'index' => 3,
+      'djoke' => 'Djoke med licens (500 nye)',
+      'punchline' => 'Hep!',
+      'status' => Node::PUBLISHED,
+      'license' => [
+        $this->getReference('license:500-nye-debile-djokes')->id(),
+      ],
+    ]);
+    $djoke->save();
   }
 
   /**
@@ -45,6 +71,7 @@ class DjokeFixture extends AbstractFixture implements DependentFixtureInterface,
   public function getDependencies() {
     return [
       CollectionFixture::class,
+      LicenseFixture::class,
     ];
   }
 

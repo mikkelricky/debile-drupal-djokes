@@ -9,6 +9,7 @@ is_admin: null
 permissions:
   - 'access coffee'
   - 'access content overview'
+  - 'access taxonomy overview'
   - 'access toolbar'
   - 'create collection content'
   - 'create djoke content'
