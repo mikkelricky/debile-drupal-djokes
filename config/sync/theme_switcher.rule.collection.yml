@@ -1,0 +1,19 @@
+uuid: 8418e99b-27ba-4073-9428-6ab0abd3af62
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: collection
+label: Collection
+weight: 0
+theme: debile_djokes_theme
+admin_theme: ''
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      collection: collection
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

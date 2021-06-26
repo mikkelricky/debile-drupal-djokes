@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "97787b7d20c80ece68098f2b9ae9a49c",
+    "content-hash": "a47453226f7b9c4249601f21dbafd0d7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2228,6 +2228,36 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/tac_lite"
             }
+        },
+        {
+            "name": "drupal/theme_switcher",
+            "version": "dev-8.x-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/theme_switcher",
+                "reference": "67ea6910135dce3f26444e6222d1713f988a2841"
+            },
+            "require": {
+                "drupal/core": "^8.5 || ^9",
+                "php": ">=7.1"
+            },
+            "default-branch": true,
+            "type": "drupal-module",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Adrián Marín",
+                    "email": "amarincolas@gmail.com"
+                }
+            ],
+            "description": "Creates Theme Switcher Rules within a Drupal installation.",
+            "support": {
+                "issues": "http://drupal.org/project/issues/theme_switcher",
+                "source": "http://cgit.drupalcode.org/theme_switcher"
+            },
+            "time": "2020-12-29T15:42:43+00:00"
         },
         {
             "name": "drupal/vapn",
@@ -10830,7 +10860,8 @@
     "stability-flags": {
         "drupal/entity_reference_exposed_filters": 15,
         "drupal/gin_login": 5,
-        "drupal/masquerade": 10
+        "drupal/masquerade": 10,
+        "drupal/theme_switcher": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
