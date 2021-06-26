@@ -10,3 +10,15 @@ services:
     class: Drupal\debile_djokes_fixtures\Fixture\DjokeFixture
     tags:
       - { name: content_fixture }
+
+  debile_djokes_fixtures.user_fixture:
+    class: Drupal\debile_djokes_fixtures\Fixture\UserFixture
+    arguments:
+      - '@user.data'
+    tags:
+      - { name: content_fixture }
+
+  debile_djokes_fixtures.license_fixture:
+    class: Drupal\debile_djokes_fixtures\Fixture\LicenseFixture
+    tags:
+      - { name: content_fixture }

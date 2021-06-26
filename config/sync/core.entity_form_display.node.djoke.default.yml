@@ -6,8 +6,11 @@ dependencies:
     - field.field.node.djoke.collection
     - field.field.node.djoke.djoke
     - field.field.node.djoke.index
+    - field.field.node.djoke.license
     - field.field.node.djoke.punchline
     - node.type.djoke
+  module:
+    - path
 id: node.djoke.default
 targetEntityType: node
 bundle: djoke
@@ -39,6 +42,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
+  license:
+    weight: 31
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
     region: content
   path:
     type: path
