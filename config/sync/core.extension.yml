@@ -3,9 +3,7 @@ module:
   breakpoint: 0
   ckeditor: 0
   coffee: 0
-  content_fixtures: 0
   debile_djokes: 0
-  debile_djokes_fixtures: 0
   dynamic_page_cache: 0
   editor: 0
   entity_reference_exposed_filters: 0
@@ -33,6 +31,7 @@ module:
   user: 0
   vapn: 0
   views_autosubmit: 0
+  views_ui: 0
   views: 10
   tac_lite: 100
   minimal: 1000
