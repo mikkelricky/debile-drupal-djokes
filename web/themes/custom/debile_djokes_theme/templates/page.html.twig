@@ -1,5 +1,42 @@
 <main role="main">
   <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
 
-  {{ page.content }}
+  <div class="header">
+    <nav class='navbar navbar-expand navbar-dark bg-dark justify-content-between'>
+      <div class='container-fluid'>
+        <ul class='navbar-nav'>
+          <li class="nav-item">
+            {% if node.id|default(false) %}
+              <a class="nav-link" href="{{ path('<front>') }}">«</a>
+            {% endif %}
+          </li>
+        </ul>
+
+        <span class='navbar-brand'>
+          {{ node.label|default('Debile Djokes') }}
+        </span>
+
+        <ul class='navbar-nav'>
+          {% if user.authenticated %}
+            <li class="nav-item">
+              <a class="nav-link dropdown-toggle" href="#" id="user-menu" data-bs-toggle="dropdown" aria-expanded="false">{{ user.displayName }}</a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-menu">
+                <li>
+                  <a class="dropdown-item" href="{{ path('user.logout') }}">{{ 'Sign out'|trans }}</a>
+                </li>
+              </ul>
+            </li>
+          {% else %}
+            <li class='nav-item'>
+              <a class='nav-link' role='button' href="{{ path('user.login') }}">{{ 'Sign in'|trans }}</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <section class="content">
+    {{ page.content }}
+  </section>
 </main>

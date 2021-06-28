@@ -22,5 +22,6 @@ permissions:
   - 'edit terms in license'
   - 'masquerade as authenticated'
   - 'masquerade as editor'
+  - 'use text format rich_text'
   - 'view own unpublished content'
   - 'view the administration theme'

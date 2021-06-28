@@ -1,9 +1,13 @@
 module:
   block: 0
   breakpoint: 0
+  ckeditor: 0
   coffee: 0
+  content_fixtures: 0
   debile_djokes: 0
+  debile_djokes_fixtures: 0
   dynamic_page_cache: 0
+  editor: 0
   entity_reference_exposed_filters: 0
   field: 0
   file: 0

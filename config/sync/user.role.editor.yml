@@ -15,5 +15,6 @@ permissions:
   - 'create djoke content'
   - 'edit any collection content'
   - 'edit any djoke content'
+  - 'use text format rich_text'
   - 'view own unpublished content'
   - 'view the administration theme'

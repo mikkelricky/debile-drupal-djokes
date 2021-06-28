@@ -6,7 +6,7 @@ dependencies:
     - node
 id: collection
 label: Collection
-weight: 0
+weight: -9
 theme: debile_djokes_theme
 admin_theme: ''
 visibility:

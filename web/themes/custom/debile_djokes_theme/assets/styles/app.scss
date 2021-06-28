@@ -1,6 +1,17 @@
 @import "~bootstrap/scss/bootstrap";
 
-#app {
+main {
+  @extend .d-flex, .flex-column;
+
+  >.content {
+    @extend .flex-grow-1;
+
+    padding: var(--bs-gutter-x, 0.75rem);
+  }
+}
+
+
+x#app {
   position: absolute;
   top: 20px;
   bottom: 20px;

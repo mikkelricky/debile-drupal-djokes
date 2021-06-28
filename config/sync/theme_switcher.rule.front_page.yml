@@ -1,0 +1,16 @@
+uuid: 8ac785f4-4c53-4ec3-ba99-d4c2f939a050
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+id: front_page
+label: 'Front page'
+weight: -10
+theme: debile_djokes_theme
+admin_theme: ''
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false

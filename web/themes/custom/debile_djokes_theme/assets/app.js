@@ -34,6 +34,7 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
   const [searchQuery, setSearchQuery] = useState('')
   const [searchIndex, setSearchIndex] = useState(null)
   const [searchResult, setSearchResult] = useState([])
+  const [showBody, setShowBody] = useState(true)
 
   const [showSettings, setShowSettings] = useState(false)
   const [showPunchline, setShowPunchline] = useState(false)
@@ -192,13 +193,19 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
           {showSettings && <Settings closeSettings={() => setShowSettings(false)} {...{ alwaysShowPunchline, setAlwaysShowPunchline }} />}
         </div>
 
-        <nav className='navbar fixed-bottom navbar-expand navbar-dark bg-dark justify-content-between'>
+        {false && showBody &&
+          <Alert variant='info' dismissible onClose={() => setShowBody(false)}>
+            <div dangerouslySetInnerHTML={{ __html: collection.body }} />
+          </Alert>}
+
+        <nav className='navbar fixed-bottom navbar-expand navbar-light bg-light justify-content-between'>
           <div className='container-fluid'>
-            <a className='navbar-brand'>{collection && collection.title ? collection?.title : 'Debile djokes'}</a>
+            {/* <ul className='navbar-nav'>
+              <li className="nav-item">
+                <a className="nav-link" href="#">Search</a>
+              </li>
+            </ul> */}
             <ul className='navbar-nav'>
-              {/* <li className="nav-item"> */}
-              {/*  <a className="nav-link" href="#">Search</a> */}
-              {/* </li> */}
               <li className='nav-item'>
                 <a className='nav-link' role='button' onClick={() => setShowSettings(true)}>Settings</a>
               </li>

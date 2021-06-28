@@ -1,9 +1,35 @@
-{% set options = {
-  collection: {
-    title: node.label
-  },
-  collection_id: node.uuid.value,
-  djokes_data_url: path('jsonapi.djoke.collection', {filter: {'collection.id': node.uuid.value}, page: {limit: 100}}),
-  total_number_of_items: 500,
-  } %}
-<div id="app" data-options="{{ options|json_encode }}">{{ head_title|safe_join(' | ') }}</div>
+<div class="collection">
+  {% set options = {
+    collection: {
+      id: node.uuid.value,
+      title: node.label,
+      body: node.body.value,
+    },
+    user: {
+      authenticated: user.authenticated,
+      id: user.id,
+      displayName: user.displayName,
+    },
+    collection_id: node.uuid.value,
+    djokes_data_url: path('jsonapi.djoke.collection', {filter: {'collection.id': node.uuid.value}, page: {limit: 100}}),
+    total_number_of_items: 500,
+    } %}
+
+  {% if not user.authenticated %}
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+      {{ '<a href="@sign_in_url" class="alert-link">Sign in</a> to read more djokes.'|trans({'@sign_in_url': path('user.login')}) }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ 'Close'|trans }}"></button>
+    </div>
+  {% else %}
+    {% if not has_license %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ '<a href="@buy_license_url" class="alert-link">Buy a license</a> to read all djokes.'|trans({'@buy_license_url': path('user.login')}) }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ 'Close'|trans }}"></button>
+      </div>
+    {% endif %}
+  {% endif %}
+
+  {#<pre>{{ dump(options) }}</pre>#}
+  <div id="app" data-options="{{ options|json_encode }}">{{ head_title|safe_join(' | ') }}</div>
+
+</div>
