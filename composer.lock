@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a47453226f7b9c4249601f21dbafd0d7",
+    "content-hash": "336fb55de40469a52ebf6ddd4b648e56",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2010,7 +2010,7 @@
             "extra": {
                 "drupal": {
                     "version": "8.x-1.0-beta17",
-                    "datestamp": "1622635843",
+                    "datestamp": "1623222447",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -2234,7 +2234,7 @@
             "version": "dev-8.x-1.x",
             "source": {
                 "type": "git",
-                "url": "https://git.drupalcode.org/project/theme_switcher",
+                "url": "https://git.drupalcode.org/project/theme_switcher.git",
                 "reference": "67ea6910135dce3f26444e6222d1713f988a2841"
             },
             "require": {

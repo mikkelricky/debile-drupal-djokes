@@ -16,7 +16,7 @@
         },
         "drupal/theme_switcher": {
             "type": "vcs",
-            "url": "https://git.drupalcode.org/project/theme_switcher"
+            "url": "https://git.drupalcode.org/project/theme_switcher.git"
         },
         "debile_djokes/debile_djokes_fixtures": {
             "type": "path",
