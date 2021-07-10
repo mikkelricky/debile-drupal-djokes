@@ -19,6 +19,7 @@ const options = JSON.parse(el.dataset.options || '{}')
 const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOfItems, collection = { title: 'Debile Djokes' } }) => {
   const [error, setError] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [loadedItems, setLoadedItems] = useState([])
   const [items, setItems] = useState(null)
   const [indexedItems, setIndexedItems] = useState([])
   const [index, setIndex] = useState(null)
@@ -36,7 +37,7 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
       .then(
         (result) => {
           currentItems = currentItems.concat(result.data)
-          // setItems(currentItems)
+          setLoadedItems(currentItems)
           const nextUrl = result.links?.next?.href
           if (nextUrl) {
             fetchItems(nextUrl, currentItems)
@@ -131,7 +132,7 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
   } else if (!isLoaded) {
     return (
       <div>
-        <ProgressBar animated now={100 * (items?.length || 0) / totalNumberOfItems} />
+        <ProgressBar animated now={100 * (loadedItems?.length || 0) / totalNumberOfItems} />
         Loading {collection.title} …
       </div>
     )
