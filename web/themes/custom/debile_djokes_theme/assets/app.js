@@ -3,16 +3,7 @@ import './styles/app.scss'
 
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
-import {
-  Alert,
-  Badge,
-  Button,
-  Card,
-  Col,
-  ProgressBar,
-  Row
-} from 'react-bootstrap'
-import { useSwipeable } from 'react-swipeable'
+import { Alert, Badge, Carousel, ProgressBar } from 'react-bootstrap'
 import Settings from './Settings'
 import useLocalStorage from './lib/useLocalStorage'
 
@@ -28,13 +19,12 @@ const options = JSON.parse(el.dataset.options || '{}')
 const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOfItems, collection = { title: 'Debile Djokes' } }) => {
   const [error, setError] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState(null)
   const [indexedItems, setIndexedItems] = useState([])
-  const [index, setIndex] = useState(-1)
+  const [index, setIndex] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [searchIndex, setSearchIndex] = useState(null)
   const [searchResult, setSearchResult] = useState([])
-  const [showBody, setShowBody] = useState(true)
 
   const [showSettings, setShowSettings] = useState(false)
   const [showPunchline, setShowPunchline] = useState(false)
@@ -46,15 +36,13 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
       .then(
         (result) => {
           currentItems = currentItems.concat(result.data)
-          setItems(currentItems)
+          // setItems(currentItems)
           const nextUrl = result.links?.next?.href
           if (nextUrl) {
             fetchItems(nextUrl, currentItems)
           } else {
             // Wait a little before showing djokes.
             setTimeout(() => {
-              setIsLoaded(true)
-              setIndex(0)
               setItems(currentItems)
             }, 1000)
           }
@@ -73,11 +61,21 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
   // this useEffect will run once
   // similar to componentDidMount()
   useEffect(() => {
+    const url = new URL(window.location)
+    const match = /^#(\d+)$/.exec(url.hash)
+    if (match !== null) {
+      setIndex(parseInt(match[1]) - 1)
+    }
+
     fetchItems(dataUrl)
   }, [])
 
   useEffect(() => {
-    console.log('index', index)
+    if (index !== null) {
+      const url = new URL(window.location)
+      url.hash = index + 1
+      window.history.replaceState({}, '', url)
+    }
   }, [index])
 
   useEffect(() => {
@@ -87,42 +85,30 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
   }, [searchQuery])
 
   useEffect(() => {
-    // Build search index.
-    if (items.length > 0) {
-      setSearchIndex(lunr(function () {
-        this.use(lunr.da)
-        this.field('djoke')
-        this.field('punchline')
+    if (items !== null) {
+      setIsLoaded(true)
+      if (index === null || index < 0 || index > items.length - 1) {
+        setIndex(0)
+      }
 
-        // Index items by id
-        const indexed = {}
-        items.forEach((item) => {
-          indexed[item.id] = item
-          this.add({ ...item.attributes, id: item.id })
-        })
-        setIndexedItems(indexed)
-      }))
+      // Build search index.
+      if (items.length > 0) {
+        setSearchIndex(lunr(function () {
+          this.use(lunr.da)
+          this.field('djoke')
+          this.field('punchline')
+
+          // Index items by id
+          const indexed = {}
+          items.forEach((item) => {
+            indexed[item.id] = item
+            this.add({ ...item.attributes, id: item.id })
+          })
+          setIndexedItems(indexed)
+        }))
+      }
     }
   }, [items])
-
-  const navigate = (offset) => {
-    let newIndex = index + offset
-    if (newIndex < 0) {
-      newIndex = 0
-    } else if (newIndex >= items.length) {
-      newIndex = items.length - 1
-    }
-    setIndex(newIndex)
-    setShowPunchline(false)
-  }
-
-  const prev = () => {
-    navigate(-1)
-  }
-
-  const next = () => {
-    navigate(1)
-  }
 
   const SearchResult = ({ result }) => {
     const item = indexedItems[result.ref]
@@ -140,63 +126,45 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
     )
   }
 
-  const handlers = useSwipeable({
-    onSwipedLeft: next,
-    onSwipedRight: prev
-  })
-
   if (error) {
     return <Alert variant='danger'>Error: {error.message}</Alert>
   } else if (!isLoaded) {
     return (
       <div>
-        <ProgressBar animated now={100 * items.length / totalNumberOfItems} />
+        <ProgressBar animated now={100 * (items?.length || 0) / totalNumberOfItems} />
         Loading {collection.title} …
       </div>
     )
   } else {
     return (
-      <div className='d-flex flex-column' {...handlers}>
-
-        <div className='djoke-navigation'>
-          <Row>
-            <Col>
-              <Button onClick={prev} disabled={index === 0}>Previous djoke</Button>
-            </Col>
-            {/* <Col className='text-center'> */}
-            {/*   <Form.Control type='search' placeholder='Search' value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} /> */}
-            {/* </Col> */}
-            <Col className='text-end'>
-              <Button onClick={next} disabled={items.length - 1 === index}>Next djoke</Button>
-            </Col>
-          </Row>
-        </div>
+      <div className='d-flex flex-column'>
 
         <div className='djoke-content flex-grow-1'>
-          {items[index] &&
-            <Card>
-              <Card.Body>
-                <Badge bg='primary' className='m-of-n'>
-                  {index + 1}/{items.length}
-                </Badge>
-                <h5 className='card-title djoke'>{items[index].attributes.djoke}</h5>
-                <p className='card-text text-end'>
-                  {showPunchline || alwaysShowPunchline
-                    ? <span className='punchline'>{items[index].attributes.punchline}</span>
-                    : <span onClick={() => setShowPunchline(true)}>Show punchline</span>}
-                </p>
-              </Card.Body>
-            </Card>}
+
+          {/* @see https://react-bootstrap.github.io/components/carousel/ */}
+          <Carousel variant='dark' defaultActiveIndex={index} indicators={false} interval={null} onSlide={(index) => { setIndex(index); setShowPunchline(false) }}>
+            {items.map((item, index) => (
+              <Carousel.Item key={`djoke-${index}`}>
+                <div className='djoke'>
+                  <Badge bg='info' className='m-of-n'>{index + 1}</Badge>
+
+                  <p className='text'>{item.attributes.djoke}</p>
+                  <p className='text-end'>
+                    {showPunchline || alwaysShowPunchline
+                      ? <span className='punchline'>{item.attributes.punchline}</span>
+                      : <span className='punchline hidden' onClick={() => setShowPunchline(true)}>Show punchline</span>}
+                  </p>
+
+                </div>
+              </Carousel.Item>
+            ))}
+
+          </Carousel>
 
           {searchResult && searchResult.length > 0 && searchResult.map(result => <SearchResult key={result.ref} result={result} />)}
 
           {showSettings && <Settings closeSettings={() => setShowSettings(false)} {...{ alwaysShowPunchline, setAlwaysShowPunchline }} />}
         </div>
-
-        {false && showBody &&
-          <Alert variant='info' dismissible onClose={() => setShowBody(false)}>
-            <div dangerouslySetInnerHTML={{ __html: collection.body }} />
-          </Alert>}
 
         <nav className='navbar fixed-bottom navbar-expand navbar-light bg-light justify-content-between'>
           <div className='container-fluid'>

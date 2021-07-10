@@ -1,4 +1,11 @@
+$carousel-transition-duration:       .2s;
+$carousel-control-width:             10%;
+
 @import "~bootstrap/scss/bootstrap";
+
+html, body, body > div, main {
+  height: 100%;
+}
 
 main {
   @extend .d-flex, .flex-column;
@@ -7,18 +14,35 @@ main {
     @extend .flex-grow-1;
 
     padding: var(--bs-gutter-x, 0.75rem);
+
+    .collection {
+      height: 100%;
+      position: relative;
+      @extend .d-flex, .flex-column;
+
+      #app {
+        @extend .flex-grow-1;
+      }
+    }
   }
 }
 
+#app > div,
+.carousel {
+  height: 100%;
+}
 
-x#app {
-  position: absolute;
-  top: 20px;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
+.carousel-item {
+  .djoke {
+    // Make room for carousel controls.
+    margin: 0 $carousel-control-width;
 
-  & > div {
-    height: 100%;
+    .punchline.hidden {
+      cursor: pointer;
+    }
+
+    .n-of-m {
+      float: right;
+    }
   }
 }

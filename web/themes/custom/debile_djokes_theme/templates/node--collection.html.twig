@@ -29,7 +29,5 @@
     {% endif %}
   {% endif %}
 
-  {#<pre>{{ dump(options) }}</pre>#}
   <div id="app" data-options="{{ options|json_encode }}">{{ head_title|safe_join(' | ') }}</div>
-
 </div>
