@@ -7,6 +7,7 @@
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\debile_djokes\Helper\EntityHelper;
+use Drupal\debile_djokes\Helper\ViewsHelper;
 
 /**
  * Implements hook_entity_presave().
@@ -15,4 +16,11 @@ use Drupal\debile_djokes\Helper\EntityHelper;
  */
 function debile_djokes_entity_presave(EntityInterface $entity) {
   Drupal::service(EntityHelper::class)->presave($entity);
+}
+
+/**
+ * Implements hook_views_data().
+ */
+function debile_djokes_views_data() {
+  return Drupal::service(ViewsHelper::class)->data();
 }

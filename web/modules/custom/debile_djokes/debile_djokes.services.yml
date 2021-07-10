@@ -2,6 +2,9 @@ services:
   Drupal\debile_djokes\Helper\EntityHelper:
     class: Drupal\debile_djokes\Helper\EntityHelper
 
+  Drupal\debile_djokes\Helper\ViewsHelper:
+    class: Drupal\debile_djokes\Helper\ViewsHelper
+
   Drupal\debile_djokes\TwigExtension\TwigExtension:
     arguments:
       - '@current_user'
