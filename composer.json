@@ -37,6 +37,7 @@
         "drupal/gin_login": "^1.0@RC",
         "drupal/jsonapi_extras": "^3.17",
         "drupal/masquerade": "^2.0@beta",
+        "drupal/redirect_after_login": "^2.7",
         "drupal/tac_lite": "^1.5",
         "drupal/theme_switcher": "dev-8.x-1.x",
         "drupal/vapn": "^1.5",
