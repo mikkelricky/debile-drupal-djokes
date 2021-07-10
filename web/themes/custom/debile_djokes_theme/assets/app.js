@@ -6,6 +6,8 @@ import ReactDOM from 'react-dom'
 import { Alert, Badge, Carousel, ProgressBar } from 'react-bootstrap'
 import Settings from './Settings'
 import useLocalStorage from './lib/useLocalStorage'
+import { useTranslation } from 'react-i18next'
+import './i18n'
 
 require('bootstrap')
 
@@ -17,6 +19,7 @@ const el = document.getElementById('app')
 const options = JSON.parse(el?.dataset.options || '{}')
 
 const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOfItems, collection = { title: 'Debile Djokes' } }) => {
+  const { t } = useTranslation()
   const [error, setError] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [loadedItems, setLoadedItems] = useState([])
@@ -128,12 +131,12 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
   }
 
   if (error) {
-    return <Alert variant='danger'>Error: {error.message}</Alert>
+    return <Alert variant='danger'>{t('Error: {{message}}', { message: error.message })}</Alert>
   } else if (!isLoaded) {
     return (
       <div>
         <ProgressBar animated now={100 * (loadedItems?.length || 0) / totalNumberOfItems} />
-        Loading {collection.title} …
+        {t('Loading {{title}} …', { title: collection.title })}
       </div>
     )
   } else {
@@ -141,10 +144,9 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
       <div className='d-flex flex-column'>
 
         <div className='djoke-content flex-grow-1'>
-
           {/* @see https://react-bootstrap.github.io/components/carousel/ */}
           <Carousel variant='dark' defaultActiveIndex={index} indicators={false} interval={null} onSlide={(index) => { setIndex(index); setShowPunchline(false) }}>
-            {items.map((item, index) => (
+            {items && items.map((item, index) => (
               <Carousel.Item key={`djoke-${index}`}>
                 <div className='djoke'>
                   <Badge bg='info' className='m-of-n'>{index + 1}</Badge>
@@ -153,7 +155,7 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
                   <p className='text-end'>
                     {showPunchline || alwaysShowPunchline
                       ? <span className='punchline'>{item.attributes.punchline}</span>
-                      : <span className='punchline hidden' onClick={() => setShowPunchline(true)}>Show punchline</span>}
+                      : <span className='punchline hidden' onClick={() => setShowPunchline(true)}>{t('Show punchline')}</span>}
                   </p>
 
                 </div>
@@ -176,7 +178,7 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
             </ul> */}
             <ul className='navbar-nav'>
               <li className='nav-item'>
-                <a className='nav-link' role='button' onClick={() => setShowSettings(true)}>Settings</a>
+                <a className='nav-link' role='button' onClick={() => setShowSettings(true)}>{t('Settings')}</a>
               </li>
             </ul>
           </div>
@@ -187,15 +189,15 @@ const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOf
   }
 }
 
-const App = (options) => {
-  return (
-    <Djokes {...options} />
-  )
-}
+// const App = (options) => {
+//   return (
+//     <Djokes {...options} />
+//   )
+// }
 
 if (el !== null) {
   ReactDOM.render(
-    <App {...options} />,
+    <Djokes {...options} />,
     el
   )
 }
