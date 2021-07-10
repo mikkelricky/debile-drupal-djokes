@@ -32,7 +32,6 @@ module:
   user: 0
   vapn: 0
   views_autosubmit: 0
-  views_ui: 0
   views: 10
   tac_lite: 100
   minimal: 1000
