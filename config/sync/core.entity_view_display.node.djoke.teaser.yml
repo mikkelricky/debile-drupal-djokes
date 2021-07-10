@@ -26,5 +26,6 @@ hidden:
   collection: true
   djoke: true
   index: true
+  langcode: true
   license: true
   punchline: true

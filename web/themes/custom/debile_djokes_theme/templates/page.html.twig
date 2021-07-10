@@ -33,13 +33,13 @@
                 {% endif %}
                 {#<li><hr class="dropdown-divider"></li>#}
                 <li>
-                  <a class="dropdown-item" href="{{ path('user.logout') }}">{{ 'Sign out'|trans }}</a>
+                  <a class="dropdown-item" href="{{ path('user.logout') }}">{{ 'Log out'|trans }}</a>
                 </li>
               </ul>
             </li>
           {% else %}
             <li class='nav-item'>
-              <a class='nav-link' role='button' href="{{ path('user.login', {destination: path('<current>')}) }}">{{ 'Sign in'|trans }}</a>
+              <a class='nav-link' role='button' href="{{ path('user.login', {destination: path('<current>')}) }}">{{ 'Log in'|trans }}</a>
             </li>
           {% endif %}
         </ul>

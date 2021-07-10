@@ -1,0 +1,11 @@
+uuid: dc467141-acfd-4771-b875-326a234ccac3
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.djoke
+id: node.djoke
+target_entity_type_id: node
+target_bundle: djoke
+default_langcode: da
+language_alterable: false
