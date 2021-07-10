@@ -39,7 +39,7 @@
             </li>
           {% else %}
             <li class='nav-item'>
-              <a class='nav-link' role='button' href="{{ path('user.login') }}">{{ 'Sign in'|trans }}</a>
+              <a class='nav-link' role='button' href="{{ path('user.login', {destination: path('<current>')}) }}">{{ 'Sign in'|trans }}</a>
             </li>
           {% endif %}
         </ul>
