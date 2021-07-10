@@ -28,7 +28,7 @@
                 {% endif %}
                 {% if is_granted('administrator') or is_granted('editor')%}
                   <li>
-                    <a class="dropdown-item" href="{{ path('system.admin', {destination: path('<current>')}) }}">{{ 'Go to administration'|trans }}</a>
+                    <a class="dropdown-item" href="{{ path('system.admin_content', {destination: path('<current>')}) }}">{{ 'Go to administration'|trans }}</a>
                   </li>
                 {% endif %}
                 {#<li><hr class="dropdown-divider"></li>#}
