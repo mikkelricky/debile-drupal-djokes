@@ -39,15 +39,31 @@ class CollectionFixture extends AbstractFixture implements FixtureGroupInterface
       1 => [
         'alias' => '500-debile-djokes',
         'title' => '500 Debile Djokes',
+        'message_anonymous' => [
+          'value' => '<p><a href="/user/login">Sign in</a> to read more djokes.</p>',
+          'format' => 'rich_text',
+        ],
+        'message_unlicensed' => [
+          'value' => '<p><a href="/license/500-debile-djokes">Buy license</a> to read all djokes.</p>',
+          'format' => 'rich_text',
+        ],
       ],
       2 => [
         'alias' => '500-nye-debile-djokes',
         'title' => '500 nye Debile Djokes',
+        'message_anonymous' => [
+          'value' => '<p><a href="/user/login">Sign in</a> to read more djokes.</p>',
+          'format' => 'rich_text',
+        ],
+        'message_unlicensed' => [
+          'value' => '<p><a href="/license/500-nye-debile-djokes">Buy license</a> to read all djokes.</p>',
+          'format' => 'rich_text',
+        ],
       ],
     ];
 
     foreach ($fixtures as $nid => $fixture) {
-      ['alias' => $alias, 'title' => $title] = $fixture;
+      ['alias' => $alias] = $fixture;
       $destinationPath = 'public://' . $alias;
       $this->fileSystem->mkdir($destinationPath, 0755, TRUE);
 
@@ -67,10 +83,9 @@ class CollectionFixture extends AbstractFixture implements FixtureGroupInterface
         FileSystemInterface::EXISTS_REPLACE
       );
 
-      $collection = Node::create([
+      $collection = Node::create($fixture + [
         'nid' => $nid,
         'type' => 'collection',
-        'title' => $title,
         'status' => Node::PUBLISHED,
         'path' => [
           'alias' => '/' . $alias,

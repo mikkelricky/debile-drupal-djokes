@@ -1,0 +1,19 @@
+uuid: 6c021aee-a00f-4c92-9e00-2d8a9f6e9e53
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.message_unlicensed
+field_name: message_unlicensed
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

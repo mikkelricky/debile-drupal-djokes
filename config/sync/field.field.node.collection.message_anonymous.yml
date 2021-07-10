@@ -1,0 +1,21 @@
+uuid: 21cdfabf-640e-4ee5-99aa-fb298c1e726c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.message_anonymous
+    - node.type.collection
+  module:
+    - text
+id: node.collection.message_anonymous
+field_name: message_anonymous
+entity_type: node
+bundle: collection
+label: Anonymous
+description: 'Message to show to anonymous users.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

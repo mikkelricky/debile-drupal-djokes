@@ -1,0 +1,21 @@
+uuid: 27f7f631-c018-4135-89d7-54ecf14b7ada
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.message_unlicensed
+    - node.type.collection
+  module:
+    - text
+id: node.collection.message_unlicensed
+field_name: message_unlicensed
+entity_type: node
+bundle: collection
+label: Unlicensed
+description: 'Message to show to authenticated users with no license.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

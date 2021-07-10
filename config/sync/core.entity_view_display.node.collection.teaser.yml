@@ -8,6 +8,8 @@ dependencies:
     - field.field.node.collection.cover_image
     - field.field.node.collection.icon
     - field.field.node.collection.logo
+    - field.field.node.collection.message_anonymous
+    - field.field.node.collection.message_unlicensed
     - node.type.collection
   module:
     - text
@@ -34,3 +36,5 @@ hidden:
   cover_image: true
   icon: true
   logo: true
+  message_anonymous: true
+  message_unlicensed: true

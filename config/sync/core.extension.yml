@@ -8,6 +8,7 @@ module:
   editor: 0
   entity_reference_exposed_filters: 0
   field: 0
+  field_group: 0
   file: 0
   filter: 0
   gin_login: 0

@@ -7,6 +7,8 @@ dependencies:
     - field.field.node.collection.cover_image
     - field.field.node.collection.icon
     - field.field.node.collection.logo
+    - field.field.node.collection.message_anonymous
+    - field.field.node.collection.message_unlicensed
     - node.type.collection
   module:
     - image
@@ -26,7 +28,7 @@ content:
     region: content
   cover_image:
     weight: 102
-    label: above
+    label: hidden
     settings:
       image_style: ''
       image_link: ''
@@ -35,7 +37,7 @@ content:
     region: content
   icon:
     weight: 104
-    label: above
+    label: hidden
     settings:
       image_style: ''
       image_link: ''
@@ -44,16 +46,30 @@ content:
     region: content
   links:
     weight: 100
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
   logo:
     weight: 103
-    label: above
+    label: hidden
     settings:
       image_style: ''
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
+  message_anonymous:
+    weight: 105
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  message_unlicensed:
+    weight: 106
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
     region: content
 hidden: {  }

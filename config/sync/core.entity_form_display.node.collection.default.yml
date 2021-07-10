@@ -7,11 +7,46 @@ dependencies:
     - field.field.node.collection.cover_image
     - field.field.node.collection.icon
     - field.field.node.collection.logo
+    - field.field.node.collection.message_anonymous
+    - field.field.node.collection.message_unlicensed
     - image.style.thumbnail
     - node.type.collection
   module:
+    - field_group
     - image
+    - path
     - text
+third_party_settings:
+  field_group:
+    group_messages:
+      children:
+        - message_anonymous
+        - message_unlicensed
+      parent_name: ''
+      weight: 12
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        required_fields: true
+        id: ''
+        classes: ''
+      label: Messages
+    group_media:
+      children:
+        - cover_image
+        - logo
+        - icon
+      parent_name: ''
+      weight: 8
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Media
 id: node.collection.default
 targetEntityType: node
 bundle: collection
@@ -19,7 +54,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 121
+    weight: 7
     settings:
       rows: 9
       summary_rows: 3
@@ -28,7 +63,7 @@ content:
     third_party_settings: {  }
     region: content
   cover_image:
-    weight: 122
+    weight: 9
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -37,12 +72,12 @@ content:
     region: content
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
   icon:
-    weight: 124
+    weight: 11
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -50,16 +85,32 @@ content:
     type: image_image
     region: content
   logo:
-    weight: 123
+    weight: 10
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
     region: content
+  message_anonymous:
+    weight: 11
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  message_unlicensed:
+    weight: 12
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
   path:
     type: path
-    weight: 30
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -67,26 +118,26 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 15
+    weight: 3
     region: content
     third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 120
+    weight: 6
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 16
+    weight: 4
     region: content
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: -5
+    weight: 0
     region: content
     settings:
       size: 60
@@ -94,7 +145,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 1
     settings:
       match_operator: CONTAINS
       size: 60
