@@ -21,6 +21,17 @@
             <li class="nav-item">
               <a class="nav-link dropdown-toggle" href="#" id="user-menu" data-bs-toggle="dropdown" aria-expanded="false">{{ user.displayName }}</a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-menu">
+                {% if node and is_granted('update', node) %}
+                  <li>
+                    <a class="dropdown-item" href="{{ path('entity.node.edit_form', {node: node.id, destination: path('<current>')}) }}">{{ 'Edit %title%'|trans({'%title%': node.label}) }}</a>
+                  </li>
+                {% endif %}
+                {% if is_granted('administrator') or is_granted('editor')%}
+                  <li>
+                    <a class="dropdown-item" href="{{ path('system.admin', {destination: path('<current>')}) }}">{{ 'Go to administration'|trans }}</a>
+                  </li>
+                {% endif %}
+                {#<li><hr class="dropdown-divider"></li>#}
                 <li>
                   <a class="dropdown-item" href="{{ path('user.logout') }}">{{ 'Sign out'|trans }}</a>
                 </li>
