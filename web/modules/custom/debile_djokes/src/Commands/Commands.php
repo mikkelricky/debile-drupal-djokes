@@ -2,6 +2,7 @@
 
 namespace Drupal\debile_djokes\Commands;
 
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\Entity\Node;
 use Drush\Commands\DrushCommands;
@@ -18,9 +19,9 @@ class Commands extends DrushCommands {
   /**
    * The entity type manager.
    *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   * @var \Drupal\Core\Entity\EntityStorageInterface
    */
-  private EntityTypeManagerInterface $entityTypeManager;
+  private EntityStorageInterface $nodeStorage;
 
   /**
    * The client.
@@ -36,7 +37,7 @@ class Commands extends DrushCommands {
     EntityTypeManagerInterface $entityTypeManager,
     ClientInterface $client
   ) {
-    $this->entityTypeManager = $entityTypeManager;
+    $this->nodeStorage = $entityTypeManager->getStorage('node');
     $this->client = $client;
   }
 
@@ -68,15 +69,15 @@ class Commands extends DrushCommands {
     $collectionId = $options['collection-id'];
     $update = $options['update'];
 
-    /** @var \Drupal\node\Entity\Node $collection */
-    $collection = Node::load($collectionId);
-    if (!$collection || 'collection' !== $collection->bundle()) {
+    /** @var \Drupal\node\Entity\Node|null $collection */
+    $collection = $this->nodeStorage->load($collectionId);
+    if (NULL === $collection || 'collection' !== $collection->bundle()) {
       throw new \RuntimeException(sprintf('Invalid collection id: %s',
         $collectionId));
     }
 
     // Check if collection contains djokes.
-    $djokeIds = $this->entityTypeManager->getStorage('node')
+    $djokeIds = $this->nodeStorage
       ->getQuery()
       ->condition('type', 'djoke')
       ->condition('collection.target_id', $collection->id())
@@ -87,9 +88,12 @@ class Commands extends DrushCommands {
         $collection->getTitle(), $collection->id()));
     }
 
+    // Index existing djokes by index.
+    /** @var \Drupal\node\NodeInterface[] $nodes */
+    $nodes = $this->nodeStorage->loadMultiple($djokeIds);
     $djokes = [];
-    foreach (Node::loadMultiple($djokeIds) as $djoke) {
-      $djokes[$djoke->index->velue] = $djoke;
+    foreach ($nodes as $djoke) {
+      $djokes[$djoke->get('index')->getString()] = $djoke;
     }
 
     try {
@@ -111,7 +115,7 @@ class Commands extends DrushCommands {
       else {
         $data = array_combine($header, $row);
         $index = $data['index'] ?? $data['id'];
-        /** @var \Drupal\node\Entity\Node $djoke */
+        /** @var \Drupal\node\Entity\Node|null $djoke */
         $djoke = $djokes[$index] ?? NULL;
         if (NULL === $djoke) {
           $djoke = Node::create([
@@ -123,10 +127,10 @@ class Commands extends DrushCommands {
           ->set('status', Node::PUBLISHED)
           ->set('index', $data['index'] ?? $data['id'])
           ->set('djoke', $data['djoke'] ?? $data['text'])
-          ->set('punchline', $data['punchline']);
-        $djoke->save();
+          ->set('punchline', $data['punchline'])
+          ->save();
 
-        $this->writeln(sprintf('% 4d: %s', $djoke->index->value, $djoke->getTitle()));
+        $this->writeln(sprintf('% 4d: %s', $djoke->get('index')->getString(), $djoke->getTitle()));
       }
     }
   }

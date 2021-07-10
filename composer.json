@@ -27,6 +27,7 @@
         "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.7",
         "drupal/coffee": "^1.2",
+        "drupal/console": "^1.9",
         "drupal/core-composer-scaffold": "^9.1",
         "drupal/core-project-message": "^9.1",
         "drupal/core-recommended": "^9.1",
@@ -46,11 +47,16 @@
         "debile_djokes/debile_djokes_fixtures": "*",
         "drupal/coder": "^8.3",
         "drupal/core-dev": "^9.1",
-        "friendsoftwig/twigcs": "^5.0"
+        "friendsoftwig/twigcs": "^5.0",
+        "mglaman/drupal-check": "^1.1",
+        "phpspec/prophecy-phpunit": "^2"
     },
     "scripts": {
         "post-install-cmd": [
             "ln -sf ../../scripts/git/hooks/pre-commit .git/hooks/pre-commit"
+        ],
+         "coding-standards-check/drupal-check": [
+            "vendor/bin/drupal-check --deprecations --analysis web/modules/custom web/themes/custom"
         ],
         "coding-standards-check/phpcs": [
             "vendor/bin/phpcs --standard=phpcs.xml.dist"
@@ -60,6 +66,7 @@
         ],
         "coding-standards-check": [
             "@coding-standards-check/phpcs",
+            "@coding-standards-check/drupal-check",
             "@coding-standards-check/twigcs"
         ],
         "coding-standards-apply/phpcs": [

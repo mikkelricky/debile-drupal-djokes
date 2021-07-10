@@ -5,16 +5,14 @@
  * Module file.
  */
 
-use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\debile_djokes\Helper\EntityHelper;
 
 /**
  * Implements hook_entity_presave().
+ *
+ * @see EntityHelper::presave()
  */
 function debile_djokes_entity_presave(EntityInterface $entity) {
-  switch ($entity->bundle()) {
-    case 'djoke':
-      $entity->setTitle(Unicode::truncate($entity->get('djoke')->value, 64, TRUE, TRUE));
-      break;
-  }
+  Drupal::service(EntityHelper::class)->presave($entity);
 }
