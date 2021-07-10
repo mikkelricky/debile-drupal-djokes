@@ -46,3 +46,17 @@ main {
     }
   }
 }
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.collection {
+  margin-bottom: $spacer;
+
+  & > a {
+    text-decoration: none;
+    color: inherit;
+  }
+}

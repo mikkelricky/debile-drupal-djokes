@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.collection.message_unlicensed
     - node.type.collection
   module:
+    - image
     - text
     - user
 id: node.collection.teaser
@@ -21,21 +22,24 @@ mode: teaser
 content:
   body:
     label: hidden
-    type: text_summary_or_trimmed
-    weight: 101
-    settings:
-      trim_length: 600
-    third_party_settings: {  }
-    region: content
-  links:
-    weight: 100
+    type: text_default
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     region: content
+  logo:
+    type: image
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
 hidden:
   cover_image: true
   icon: true
   langcode: true
-  logo: true
+  links: true
   message_anonymous: true
   message_unlicensed: true

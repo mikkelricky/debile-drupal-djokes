@@ -14,7 +14,7 @@ require('lunr-languages/lunr.stemmer.support')(lunr)
 require('lunr-languages/lunr.da')(lunr)
 
 const el = document.getElementById('app')
-const options = JSON.parse(el.dataset.options || '{}')
+const options = JSON.parse(el?.dataset.options || '{}')
 
 const Djokes = ({ djokes_data_url: dataUrl, total_number_of_items: totalNumberOfItems, collection = { title: 'Debile Djokes' } }) => {
   const [error, setError] = useState(null)
@@ -193,7 +193,9 @@ const App = (options) => {
   )
 }
 
-ReactDOM.render(
-  <App {...options} />,
-  el
-)
+if (el !== null) {
+  ReactDOM.render(
+    <App {...options} />,
+    el
+  )
+}
